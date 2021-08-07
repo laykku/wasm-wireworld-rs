@@ -2,11 +2,11 @@ import { World, Cell, print_smth } from "wasm-wireworld-rs";
 import { memory } from "wasm-wireworld-rs/wasm_wireworld_rs_bg";
 
 const CELL_SIZE = 10;
-const GRID_COLOR = "#EEEEEE";
+const GRID_COLOR = "#D8E3E7";
 const EMPTY_COLOR = "#FFFFFF";
-const ELECTRONHEAD_COLOR = "#00ff00";
-const ELECTRONTAIL_COLOR = "#ff0000";
-const CONDUCTOR_COLOR = "#334257";
+const ELECTRONHEAD_COLOR = "#51C4D3";
+const ELECTRONTAIL_COLOR = "#126E82";
+const CONDUCTOR_COLOR = "#132C33";
 
 const world = World.new(64, 64);
 
@@ -75,16 +75,34 @@ const drawCells = () => {
     }
 }
 
+let row = 0;
+let col = 0;
 
-drawGrid();
-drawCells();
+canvas.onmousemove = (e) => {
+    let cRect = canvas.getBoundingClientRect();
+    let canvasX = Math.round(e.clientX - cRect.left);
+    let canvasY = Math.round(e.clientY - cRect.top);
+    row = Math.floor(canvasY / (CELL_SIZE + 1));
+    col = Math.floor(canvasX / (CELL_SIZE + 1));
+};
 
-/*
+canvas.onmousedown = (e) => {
+    console.log(row, col);
+    if (e.button == 0) {
+        world.toggle_cell(row, col);
+    } else if (e.button == 2) {
+        world.set_electronhead(row, col);
+    }
+};
+
+canvas.oncontextmenu = (e) => {
+    e.preventDefault();
+};
+
 window.setInterval(() => {
-    
+
     world.tick();
-    
+
     drawGrid();
     drawCells();
-}, 1000)
-*/
+}, 100)
