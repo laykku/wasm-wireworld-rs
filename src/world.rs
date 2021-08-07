@@ -41,6 +41,25 @@ impl World {
         self.cells.as_ptr()
     }
 
+    pub fn toggle_cell(&mut self, row: u32, col: u32) {
+        let idx = self.get_index(row, col);
+        match self.cells[idx] {
+            Cell::Empty => {
+                self.cells[idx] = Cell::Conductor;
+            }
+            _ => {
+                self.cells[idx] = Cell::Empty;
+            }
+        }
+    }
+
+    pub fn set_electronhead(&mut self, row: u32, col: u32) {
+        let idx = self.get_index(row, col);
+        if self.cells[idx] == Cell::Conductor {
+            self.cells[idx] = Cell::ElectronHead;
+        }
+    }
+
     pub fn tick(&mut self) {
         let mut next = self.cells.clone();
 
