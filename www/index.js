@@ -8,7 +8,9 @@ const ELECTRONHEAD_COLOR = "#FFA900";
 const ELECTRONTAIL_COLOR = "#CD113B";
 const CONDUCTOR_COLOR = "#52006A";
 
-const world = World.new(64, 64);
+const json = document.getElementById("demo-circuit").innerText;
+const world = World.from_json(json);
+
 const width = world.width();
 const height = world.height();
 
@@ -97,7 +99,6 @@ canvas.onmousemove = (e) => {
 
 canvas.onmousedown = (e) => {
     draw = true;
-    console.log(row, col);
     if (e.button == 0) {
         prev_row = row;
         prev_col = col;
@@ -122,4 +123,4 @@ window.setInterval(() => {
 
     drawGrid();
     drawCells();
-}, 100)
+}, 100);
