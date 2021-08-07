@@ -1,7 +1,7 @@
 use wasm_bindgen::prelude::*;
 use serde::{Serialize, Deserialize};
 
-use crate::print_log;
+use crate::{circuit, print_log};
 
 #[wasm_bindgen]
 #[repr(u8)]
@@ -30,6 +30,10 @@ impl World {
             height,
             cells,
         }
+    }
+
+    pub fn load_demo() -> World {
+        World::from_json(circuit::get_circuit())
     }
 
     pub fn from_json(json: &str) -> World {

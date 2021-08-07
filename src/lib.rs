@@ -2,6 +2,8 @@ mod utils;
 use wasm_bindgen::prelude::*;
 
 mod world;
+mod circuit;
+
 pub use world::{Cell, World};
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global

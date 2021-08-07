@@ -8,8 +8,7 @@ const ELECTRONHEAD_COLOR = "#FFA900";
 const ELECTRONTAIL_COLOR = "#CD113B";
 const CONDUCTOR_COLOR = "#52006A";
 
-const json = document.getElementById("demo-circuit").innerText;
-const world = World.from_json(json);
+const world = World.load_demo();
 
 const width = world.width();
 const height = world.height();
