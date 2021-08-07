@@ -1,9 +1,11 @@
-use std::fmt;
 use wasm_bindgen::prelude::*;
+use serde::{Serialize, Deserialize};
+
+use crate::print_log;
 
 #[wasm_bindgen]
 #[repr(u8)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Cell {
     Empty = 0,
     ElectronHead = 1,
@@ -12,6 +14,7 @@ pub enum Cell {
 }
 
 #[wasm_bindgen]
+#[derive(Serialize, Deserialize)]
 pub struct World {
     width: u32,
     height: u32,
@@ -27,6 +30,14 @@ impl World {
             height,
             cells,
         }
+    }
+
+    pub fn from_json(json: &str) -> World {
+        if let Ok(world) = serde_json::from_str(json) {
+            return world
+        }
+        print_log("Something went wronmg parsing json.");
+        World::new(64, 64)
     }
 
     pub fn width(&self) -> u32 {
