@@ -46,11 +46,10 @@ impl World {
         match self.cells[idx] {
             Cell::Empty => {
                 self.cells[idx] = Cell::Conductor;
-            },
-            Cell::Conductor => {
+            }
+            _ => {
                 self.cells[idx] = Cell::Empty;
-            },
-            _ => {}
+            }
         }
     }
 
